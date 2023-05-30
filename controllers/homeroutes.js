@@ -2,13 +2,13 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const {Post, User, Comment } = require('../models');
 // const { restore } = require('../models/User'); needed?
-// const withAuth = require('../utils/auth');
+const withAuth = require('../utils/auth');
 
 // get all posts
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   // router.get('/', withAuth, async (req, res) => {
   try {
-    const dbPostData = await Post.findAll({
+    const postData = await Post.findAll({
       attributes: ['id', 'title', 'created_at', 'content'],
       include: [
         {
@@ -26,8 +26,8 @@ router.get('/', async (req, res) => {
       ],
       order: [['created_at', 'DESC']],
     })
-    .then(dbPostData => { //needed?
-    const posts = dbPostData.map((post) => post.get({ plain: true }));
+    .then(postData => { //needed?
+    const posts = postData.map((post) => post.get({ plain: true }));
     console.log(posts)
 
     res.render('homepage', {
@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
 // get one post
 router.get('/post/:id', async (req, res) => {
   try{
-    const dbPostData = await Post.findOne({ 
+    const postData = await Post.findOne({ 
     where: {
       id: req.params.id, 
     },
@@ -65,12 +65,12 @@ router.get('/post/:id', async (req, res) => {
       },
     ],
   });
-  // .then(dbPostData => {
-    if (!dbPostData) {
+  // .then(postData => {
+    if (!postData) {
       res.status(404).json({message: 'No post found with this id'});
       return;
     }
-    const post = dbPostData.get({plain: true});
+    const post = postData.get({plain: true});
     console.log(post);
 
     res.render('singlePost', {
