@@ -64,26 +64,27 @@ router.get('/post/:id', async (req, res) => {
         attributes: ['username'],
       },
     ],
-  })
-  .then(dbPostData => {
+  });
+  // .then(dbPostData => {
     if (!dbPostData) {
       res.status(404).json({message: 'No post found with this id'});
       return;
     }
     const post = dbPostData.get({plain: true});
     console.log(post);
+
     res.render('singlePost', {
       post,
       loggedIn: req.session.loggedIn,
       username: req.session.username,
       userId: req.session.userId
     });
-  })
-  .catch(err => {
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
-  });
+  };
 });
+
 
 // login
 router.get('/login', async (req, res) => {
