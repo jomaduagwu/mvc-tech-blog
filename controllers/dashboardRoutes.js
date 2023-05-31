@@ -9,12 +9,12 @@ router.get('/', withAuth, (req, res) => {
       where: {
         userId: req.session.userId,
       },
-      attributes: ['id', 'title', 'content', 'created_at'],
-      order: [['created_at', 'DESC']],
+      attributes: ['id', 'title', 'content'],
+      // order: [['created_at', 'DESC']],
       include: [
         {
           model: Comment,
-          attributes: ['id', 'comment', 'postId', 'userId', 'created_at'],
+          attributes: ['id', 'comment', 'postId', 'userId'],
           include: {
             model: User,
             attributes: ['username'],
@@ -42,7 +42,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ['id', 'title', 'content', 'created_at'],
+    attributes: ['id', 'title', 'content'],
     include: [
       {
         model: User,
@@ -50,7 +50,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
       },
       {
         model: Comment,
-        attributes: ['id', 'comment', 'postId', 'userId', 'created_at'],
+        attributes: ['id', 'comment', 'postId', 'userId'],
         include: {
           model: User,
           attributes: ['username'],

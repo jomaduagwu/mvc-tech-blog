@@ -9,11 +9,11 @@ router.get('/', withAuth, async (req, res) => {
   // router.get('/', withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
-      attributes: ['id', 'title', 'created_at', 'content'],
+      attributes: ['id', 'title', 'content'],
       include: [
         {
           model: Comment,
-          attributes: ['id', 'comment', 'postId', 'userId', 'created_at'],
+          attributes: ['id', 'comment', 'postId', 'userId'],
           include: {
             model: User,
             attributes: ['username'],
@@ -24,7 +24,7 @@ router.get('/', withAuth, async (req, res) => {
           attributes: ['username'],
         },
       ],
-      order: [['created_at', 'DESC']],
+      // order: [['created_at', 'DESC']],
     })
     .then(postData => { //needed?
     const posts = postData.map((post) => post.get({ plain: true }));
@@ -49,11 +49,11 @@ router.get('/post/:id', async (req, res) => {
     where: {
       id: req.params.id, 
     },
-    attributes: ['id', 'title', 'created_at', 'userId', 'description'],
+    attributes: ['id', 'title', 'userId', 'description'],
     include: [
       {
         model: Comment,
-        attributes: ['id', 'comment', 'postId', 'userId', 'created_at'],
+        attributes: ['id', 'comment', 'postId', 'userId'],
         include: {
           model: User,
           attributes: ['username'],
