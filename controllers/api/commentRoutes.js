@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     };
     res.status(200).json(commentData);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
       }
       res.status(200).json(commentData);
   } catch (err) {
-      res.status(500).json(err);
+      res.status(400).json(err);
   }
 });
 
@@ -37,12 +37,12 @@ router.post('/', withAuth, async (req, res) => {
     const body = req.body;
     try {
         const newComment = await Comment.create({
-            ...body,
+            ...req.body,
             userId: req.session.userId,
         });
         res.status(200).json({ newComment, success: true });
     } catch (err) {
-        res.status(500).json(err);
+        res.status(400).json(err);
     }
 });
 
@@ -60,7 +60,7 @@ router.delete('/:id', withAuth, async (req, res) => {
       }  
       res.status(200).json({commentData, success: true});
     } catch (err) {
-      res.status(500).json(err);
+      res.status(400).json(err);
     }
 });
 

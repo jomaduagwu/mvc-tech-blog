@@ -64,7 +64,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
         return;
       }
       const post = postData.get({ plain: true });
-      res.render('edit-post', { post, loggedIn: true, username: req.session.username });         
+      res.render('editpost', { post, loggedIn: true, username: req.session.username });         
     })
     .catch((err) => {
       console.log(err);
@@ -74,7 +74,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
 
 //  Get new post 
 router.get('/new', withAuth, (req, res) => {
-    res.render('new-post', { username: req.session.username });
+    res.render('newpost', { username: req.session.username });
 });
 
 module.exports = router; 

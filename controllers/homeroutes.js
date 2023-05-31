@@ -5,7 +5,7 @@ const {Post, User, Comment } = require('../models');
 const withAuth = require('../util/auth');
 
 // get all posts
-router.get('/', withAuth, async (req, res) => {
+router.get('/', async (req, res) => { 
   // router.get('/', withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
@@ -85,11 +85,30 @@ router.get('/post/:id', async (req, res) => {
   };
 });
 
+router.get('/dashboard', withAuth, async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.userId, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Post }],
+    });
+
+    const user = userData.get({ plain: true });
+
+    res.render('dashboard', {
+      user,
+      logged_in: true
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 // login
 router.get('/login', async (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/');
+  if (req.session.loggedIn) {
+    res.redirect('/dashboard');
     return;
   }
   res.render('login');
