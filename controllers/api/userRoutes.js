@@ -10,6 +10,7 @@ router.post('/', async (req, res) => {
     req.session.save(() => {
       req.session.userId = userData.id;
       req.session.username = userData.username;
+      req.session.email = userData.email;
       req.session.loggedIn = true;
 
       res.status(200).json({message: `Account created for ${userData.username}`});
@@ -23,13 +24,13 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ 
-      where: { email: req.body.username } 
+      where: { email: req.body.email } // changed req.body.username to email
     });
 
     if (!userData) {
       res
         .status(400)
-        .json({ message: `User id ${req.params.id} is not valid, please try again.`});
+        .json({ message: `Email or password is not valid, please try again.`});
       return;
     }
 
@@ -55,14 +56,14 @@ router.post('/login', async (req, res) => {
 });
 
 // logout
-router.post('/logout', withAuth, async (req, res) => {
+router.post('/logout', async (req, res) => {
   try {
-  // if (req.session.loggedIn) {
+  if (req.session.loggedIn) {
      req.session.destroy();
       res.status(204).end();
-  // } else {
-  //   res.status(404).end();
-  // }
+  } else {
+    res.status(404).end();
+  }
 } catch (err) {
   res.status(400).end();
 }

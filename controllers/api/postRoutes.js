@@ -57,7 +57,7 @@ router.delete('/:id', withAuth, async (req, res) => {
     });
 
     if (!postData) {
-      res.status(404).json({ message: `No User Id ${req.session.userId} found with id = ${req.params.id}`});
+      res.status(404).json({ message: `No post found with id = ${req.params.id}`});
       return;
     }
 
