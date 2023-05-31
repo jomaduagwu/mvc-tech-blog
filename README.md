@@ -14,24 +14,19 @@
 
 
   ## Installation
-  Clone the respository from the repo in GitHub. Make sure you install Node.js and NPM on your computer. Run `npm install` to install the required dependencies. Run `npm start` to start the server.
+  Clone the respository from the repo in GitHub. Make sure you install Node.js and NPM on your computer. Run `npm install` to install the required dependencies. Run `npm run seed` to seed the data then `npm start` to start the server.
 
   ## Usage
 
-  Link to deployed application [here](https://heroku.com/). 
+  Link to deployed application [here](https://new-green-gate.herokuapp.com/). 
 
-    Start by opening the file in the terminal. Make sure you use the environment to update your MySQL username and password. Run `mysql -u root -p` to initialize MySQL, then type your password to login. Run `source db/schema.sql` to load the database and then `npm run seed` to seed data to your database. Run `npm start` to start the server and use Insomnia Core to test the API routes. 
+  Start by opening the file in the terminal. Make sure you use the environment to update your MySQL username and password. Run `mysql -u root -p` to initialize MySQL, then type your password to login. Run `source db/schema.sql` to load the database and then `npm run seed` to seed data to your database. Run `npm start` to start the server.
 
 
-  ![mvc tech blog screenshot](./assets/ecommerce-back-end-application.gif)
+  ![mvc tech blog screenshot](./assets/images/homepage-screenshot.png)
+  ![mvc tech blog screenshot](./assets/images/dashboard-screenshot.png)
   
-  ![ecommerce screenshot](./assets/get-tags-screenshot.png)
-  ![ecommerce screenshot](./assets/get-categories-screenshot.png)
-
-
-
-  
-
+ 
 
 
 ## Credits
