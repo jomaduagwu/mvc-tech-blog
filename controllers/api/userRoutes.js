@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
     const userData = await User.create(req.body);
 
     req.session.save(() => {
-      req.session.user_id = userData.id;
+      req.session.userId = userData.id;
       req.session.username = userData.username;
       req.session.loggedIn = true;
 
@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
 router.post('/logout', withAuth, async (req, res) => {
   try {
   if (req.session.loggedIn) {
-     await req.session.destroy();
+     req.session.destroy();
       res.status(204).end();
   } else {
     res.status(404).end();
